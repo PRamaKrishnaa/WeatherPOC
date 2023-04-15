@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WeatherPOC</string>
+    <string name="location_hint">city name, state code, country code</string>
+    <string name="city_name">City: %s</string>
+    <string name="weather_state">State of Weather: %s</string>
+    <string name="description">Description: %s</string>
+    <string name="temp">Temp: %s</string>
+    <string name="feels_like">Feels Like: %s</string>
+    <string name="min_temp">Min Temp: %s</string>
+    <string name="max_temp">Max Temp: %s</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="history_item_padding">12dp</dimen>
+    <dimen name="history_page_padding">6dp</dimen>
+
+    <dimen name="shimmer_line1">202dp</dimen>
+    <dimen name="shimmer_line2">64dp</dimen>
+    <dimen name="shimmer_line3">77dp</dimen>
+    <dimen name="shimmer_line4">33dp</dimen>
+    <dimen name="shimmer_line5">108dp</dimen>
+    <dimen name="shimmer_line6">57dp</dimen>
+    <dimen name="shimmer_line_height">8dp</dimen>
+    <dimen name="shimmer_margin1">20dp</dimen>
+    <dimen name="shimmer_margin2">40dp</dimen>
+
+
+
+</resources>

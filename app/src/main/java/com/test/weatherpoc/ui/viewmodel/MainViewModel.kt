@@ -47,8 +47,9 @@ class MainViewModel(private val weatherRepository: WeatherRepository) : ViewMode
     //end region
 
     //region get Weather Data
-    private fun getWeatherData(latitudeValue: String, longitudeValue: String) {
+    fun getWeatherData(latitudeValue: String, longitudeValue: String) {
         viewModelScope.launch {
+            _viewState.value = WeatherViewState.Loading
             val getWeatherResponse =
                 weatherRepository.getWeatherDetails(latitudeValue, longitudeValue, APP_ID)
             if (getWeatherResponse.isSuccessful) {

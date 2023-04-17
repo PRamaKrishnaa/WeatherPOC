@@ -55,20 +55,12 @@ class MainActivity : AppCompatActivity(), LocationListener {
         checkLocationPermission()
 
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            100,
-            50f,
-            this
-        )
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps()
-        }
 
         initializeViews()
 
     }
 
+    // To fetch latitude and longitude from current location
     override fun onLocationChanged(location: Location) {
         latitude = location.latitude
         longitude = location.longitude
@@ -84,6 +76,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         }
 
     }
+    //end region
     // endregion
 
     //region initialization
@@ -226,16 +219,14 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+                        Manifest.permission.ACCESS_FINE_LOCATION
                     ), 1
                 )
             } else {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+                        Manifest.permission.ACCESS_FINE_LOCATION
                     ), 1
                 )
             }
@@ -249,15 +240,29 @@ class MainActivity : AppCompatActivity(), LocationListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                }
+                checkGpsPermissionAccess()
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
             } else {
                 // Toast.makeText(this, "Please enable permission in settings", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    //to check whether GPS is enabled or not after location permission access granted
+    private fun checkGpsPermissionAccess() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                100,
+                50f,
+                this
+            )
+            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                buildAlertMessageNoGps()
             }
         }
     }
@@ -290,9 +295,14 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 50f,
                 this
             )
-
-
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        checkGpsPermissionAccess()
+
     }
 
     override fun onPause() {
